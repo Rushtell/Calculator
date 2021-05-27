@@ -17,7 +17,7 @@ namespace Calculator.Test
             Assert.Equal(44.44, test1);
             Assert.Equal(22.22, test2);
             Assert.Equal(33.33, test3);
-            Assert.Equal(3, test4);
+            Assert.Equal(4, test4);
             Assert.Equal(double.NaN, test5);
         }
     }
