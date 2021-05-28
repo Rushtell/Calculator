@@ -20,5 +20,49 @@ namespace Calculator.Test
             Assert.Equal(3, test4);
             Assert.Equal(double.NaN, test5);
         }
+
+        [Fact]
+        public void ShouldReceiveUserInput()
+        {
+            IConsoleWrapper consoleWrapper = new MockConsoleWrapper();
+            string userInput = consoleWrapper.ReadLine();
+            string userInput2 = consoleWrapper.ReadLine();
+            string userInput3 = consoleWrapper.ReadLine();
+            string userInput4 = consoleWrapper.ReadLine();
+
+            Assert.Equal("5", userInput);
+            Assert.Equal("2", userInput2);
+            Assert.Equal("m", userInput3);
+            Assert.Equal("n", userInput4);
+        }
+
+        [Fact]
+        public void ShouldMultiplyFiveAndTwo()
+        {
+            MockConsoleWrapper mockConsoleWrapper = new MockConsoleWrapper();
+            Program.StartCalculator(mockConsoleWrapper);
+        }
+
+    }
+
+    public class MockConsoleWrapper : IConsoleWrapper
+    {
+        int temp = 0;
+
+        public string ReadLine()
+        {
+            string[] ArrForTests = new string[]
+            {
+                "5",
+                "2",
+                "m",
+                "n"
+            };
+
+            temp++;
+
+            return ArrForTests[temp - 1];
+
+        }
     }
 }
