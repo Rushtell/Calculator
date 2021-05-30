@@ -10,5 +10,15 @@ namespace Calculator
         {
             return Console.ReadLine();
         }
+
+        public void WriteLine(string msg)
+        {
+            Console.WriteLine(msg);
+        }
+
+        public void Write(string msg)
+        {
+            Console.Write(msg);
+        }
     }
 }

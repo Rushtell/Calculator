@@ -41,12 +41,28 @@ namespace Calculator.Test
         {
             MockConsoleWrapper mockConsoleWrapper = new MockConsoleWrapper();
             Program.StartCalculator(mockConsoleWrapper);
-        }
 
+            string exp = "\nConsole Calculator in C#\r" +
+                "\n------------------------" +
+                "\nType a number, and then press Enter: " +
+                "Type another number, and then press Enter: " +
+                "\nChoose an operator from the following list:" +
+                "\n\ta - Add" +
+                "\n\ts - Subtract" +
+                "\n\tm - Multiply" +
+                "\n\td - DivideYour option? " +
+                "\nYour result: " +
+                "\n10" +
+                "\n------------------------" +
+                "\n\n\n";
+            Assert.Equal(exp, mockConsoleWrapper.ConsoleLog);
+        }
     }
 
     public class MockConsoleWrapper : IConsoleWrapper
     {
+        public string ConsoleLog { get; set; }
+
         int temp = 0;
 
         public string ReadLine()
@@ -62,7 +78,20 @@ namespace Calculator.Test
             temp++;
 
             return ArrForTests[temp - 1];
+        }
 
+        public void WriteLine(string msg)
+        {
+            Console.WriteLine(msg);
+
+            ConsoleLog += $"\n{msg}";
+        }
+
+        public void Write(string msg)
+        {
+            Console.Write(msg);
+
+            ConsoleLog += $"{msg}";
         }
     }
 }
