@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Calculator.Test
@@ -30,10 +31,10 @@ namespace Calculator.Test
             string userInput3 = consoleWrapper.ReadLine();
             string userInput4 = consoleWrapper.ReadLine();
 
-            Assert.Equal("5", userInput);
-            Assert.Equal("2", userInput2);
-            Assert.Equal("m", userInput3);
-            Assert.Equal("n", userInput4);
+            Assert.Equal("", userInput);
+            Assert.Equal("5", userInput2);
+            Assert.Equal("", userInput3);
+            Assert.Equal("2", userInput4);
         }
 
         [Fact]
@@ -42,26 +43,13 @@ namespace Calculator.Test
             MockConsoleWrapper mockConsoleWrapper = new MockConsoleWrapper();
             Program.StartCalculator(mockConsoleWrapper);
 
-            string exp = "\nConsole Calculator in C#\r" +
-                "\n------------------------" +
-                "\nType a number, and then press Enter: " +
-                "Type another number, and then press Enter: " +
-                "\nChoose an operator from the following list:" +
-                "\n\ta - Add" +
-                "\n\ts - Subtract" +
-                "\n\tm - Multiply" +
-                "\n\td - DivideYour option? " +
-                "\nYour result: " +
-                "\n10" +
-                "\n------------------------" +
-                "\n\n\n";
-            Assert.Equal(exp, mockConsoleWrapper.ConsoleLog);
+            Assert.Equal("Your result: \n10", mockConsoleWrapper.ConsoleLog[12]);
         }
     }
 
     public class MockConsoleWrapper : IConsoleWrapper
     {
-        public string ConsoleLog { get; set; }
+        public List<string> ConsoleLog = new List<string>();
 
         int temp = 0;
 
@@ -69,9 +57,27 @@ namespace Calculator.Test
         {
             string[] ArrForTests = new string[]
             {
+                "",
                 "5",
+                "",
                 "2",
                 "m",
+                "",
+                "5",
+                "2",
+                "a",
+                "",
+                "5",
+                "2",
+                "s",
+                "",
+                "5",
+                "2",
+                "d",
+                "",
+                "5",
+                "0",
+                "d",
                 "n"
             };
 
@@ -84,14 +90,14 @@ namespace Calculator.Test
         {
             Console.WriteLine(msg);
 
-            ConsoleLog += $"\n{msg}";
+            ConsoleLog.Add($"{msg}");
         }
 
         public void Write(string msg)
         {
             Console.Write(msg);
 
-            ConsoleLog += $"{msg}";
+            ConsoleLog.Add($"{msg}");
         }
     }
 }
