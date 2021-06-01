@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace Calculator.Test
@@ -19,6 +20,84 @@ namespace Calculator.Test
             Assert.Equal(33.33, test3);
             Assert.Equal(3, test4);
             Assert.Equal(double.NaN, test5);
+        }
+
+        [Fact]
+        public void ShouldReceiveUserInput()
+        {
+            IConsoleWrapper consoleWrapper = new MockConsoleWrapper();
+            string userInput = consoleWrapper.ReadLine();
+            string userInput2 = consoleWrapper.ReadLine();
+            string userInput3 = consoleWrapper.ReadLine();
+            string userInput4 = consoleWrapper.ReadLine();
+
+            Assert.Equal("", userInput);
+            Assert.Equal("5", userInput2);
+            Assert.Equal("", userInput3);
+            Assert.Equal("2", userInput4);
+        }
+
+        [Fact]
+        public void ShouldMultiplyFiveAndTwo()
+        {
+            MockConsoleWrapper mockConsoleWrapper = new MockConsoleWrapper();
+            Program.StartCalculator(mockConsoleWrapper);
+
+            Assert.Equal("Your result: \n10", mockConsoleWrapper.ConsoleLog[12]);
+        }
+    }
+
+    public class MockConsoleWrapper : IConsoleWrapper
+    {
+        public List<string> ConsoleLog = new List<string>();
+
+        int temp = 0;
+
+        public string ReadLine()
+        {
+            string[] ArrForTests = new string[]
+            {
+                "",
+                "5",
+                "",
+                "2",
+                "m",
+                "",
+                "5",
+                "2",
+                "a",
+                "",
+                "5",
+                "2",
+                "s",
+                "",
+                "5",
+                "2",
+                "d",
+                "",
+                "5",
+                "0",
+                "d",
+                "n"
+            };
+
+            temp++;
+
+            return ArrForTests[temp - 1];
+        }
+
+        public void WriteLine(string msg)
+        {
+            Console.WriteLine(msg);
+
+            ConsoleLog.Add($"{msg}");
+        }
+
+        public void Write(string msg)
+        {
+            Console.Write(msg);
+
+            ConsoleLog.Add($"{msg}");
         }
     }
 }
