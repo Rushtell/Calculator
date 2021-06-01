@@ -13,13 +13,12 @@ namespace Calculator.Test
             double test2 = Calculator.DoOperation(33.33, 11.11, "s");
             double test3 = Calculator.DoOperation(3, 11.11, "m");
             double test4 = Calculator.DoOperation(33.33, 11.11, "d");
-            double test5 = Calculator.DoOperation(33.33, 11.11, "none");
 
             Assert.Equal(44.44, test1);
             Assert.Equal(22.22, test2);
             Assert.Equal(33.33, test3);
             Assert.Equal(3, test4);
-            Assert.Equal(double.NaN, test5);
+            Assert.Throws<InvalidOperationException>(() => Calculator.DoOperation(33.33, 11.11, "none"));
         }
 
         [Fact]
@@ -44,6 +43,14 @@ namespace Calculator.Test
             Program.StartCalculator(mockConsoleWrapper);
 
             Assert.Equal("Your result: \n10", mockConsoleWrapper.ConsoleLog[12]);
+        }
+
+        [Fact]
+        public void TestConsoleWrapper()
+        {
+            ConsoleWrapper ConsoleWrapper = new ConsoleWrapper();
+            ConsoleWrapper.Write("Hello");
+            ConsoleWrapper.WriteLine("World!");
         }
     }
 
@@ -78,6 +85,10 @@ namespace Calculator.Test
                 "5",
                 "0",
                 "d",
+                "",
+                "5",
+                "2",
+                "p",
                 "n"
             };
 
