@@ -30,6 +30,7 @@ namespace Calculator.Test
             string userInput3 = consoleWrapper.ReadLine();
             string userInput4 = consoleWrapper.ReadLine();
 
+
             Assert.Equal("", userInput);
             Assert.Equal("5", userInput2);
             Assert.Equal("", userInput3);
